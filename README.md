@@ -153,3 +153,25 @@ export default function RootLayout({
     );
 }
 ```
+
+5. Inside the store reducer add the api reducer
+
+```ts
+[productsAPI.reducerPath]
+:
+productsAPI.reducer
+```
+
+`final`
+
+```ts
+//store.ts
+import {configureStore} from "@reduxjs/toolkit";
+import {productsAPI} from "@/redux/slice/api";
+
+export const store = configureStore({
+    reducer: {
+        [productsAPI.reducerPath]: productsAPI.reducer,
+    },
+});
+```
