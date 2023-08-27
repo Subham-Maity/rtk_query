@@ -185,9 +185,9 @@ middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(productsAPI.middleware)
 ```
 
-``ts
+```ts
 setupListeners(store.dispatch);
-``
+```
 
 ```ts
 // takes an optional callback as the 2nd arg for customization
