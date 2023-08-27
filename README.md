@@ -249,6 +249,67 @@ export default function Home() {
 
 ```
 
+8. Now you can iterate over the data and show it in the component
+
+make a `type.ts`
+
+```ts
+// types.ts
+export interface UserData {
+    id: number;
+    name: string;
+    username: string;
+    email: string;
+    address: {
+        street: string;
+        suite: string;
+        city: string;
+        zipcode: string;
+        geo: {
+            lat: string;
+            lng: string;
+        };
+    };
+    phone: string;
+    website: string;
+    company: {
+        name: string;
+        catchPhrase: string;
+        bs: string;
+    };
+}
+```
+
+```tsx
+"use client";
+
+import {useGetProductByNameQuery} from "@/redux/slice/api";
+import {UserData} from "@/app/types";
+
+export default function Home() {
+    const {data} = useGetProductByNameQuery("");
+    //usually happens when the API call hasn't finished fetching the data yet
+    //To resolve this issue, you need to ensure that you're handling the loading state correctly. One way to do this is by checking whether the data is present before trying to map over it. 
+    if (!data) {
+        return <div>Loading...</div>;
+    }
+    return (
+        <div>
+            {data.map((item: UserData) => (
+                <div key={item.id}>
+                    <h2>{item.name}</h2>
+                    <p>{item.email}</p>
+                    <p>{item.company.catchPhrase}</p>
+                    <p>{item.address.city}</p>
+                </div>
+            ))}
+        </div>);
+}
+```
+
+### Check out the preview [here](https://rtk-query-tutorial.vercel.app/)
+
+
 
 
 
