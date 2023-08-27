@@ -211,3 +211,27 @@ export const store = configureStore({
 setupListeners(store.dispatch);
 ```
 
+7. Now we can use the hook in our component
+
+Open `page.tsx`
+
+```tsx
+//Once a service has been defined, you can import the hooks to make a request.
+const data = useGetProductByNameQuery("");
+console.log(data);
+```
+
+Now destruct the data and use it in the component
+
+```tsx
+const {data} = useGetProductByNameQuery("");
+console.log(data);
+```
+
+> You can see the data in the console of the browser
+
+
+
+
+
+
