@@ -157,6 +157,7 @@ export default function RootLayout({
 5. Inside the store reducer add the api reducer
 
 ```ts
+//Generate the reducer as a specific top-level key in the store
 [productsAPI.reducerPath]
 :
 productsAPI.reducer
@@ -175,3 +176,38 @@ export const store = configureStore({
     },
 });
 ```
+
+6. After the reducer use the middleware
+
+```ts
+// Adding the api middleware enables caching, invalidation, polling,and other useful features of `rtk-query`.
+middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(productsAPI.middleware)
+```
+
+``ts
+setupListeners(store.dispatch);
+``
+
+```ts
+// takes an optional callback as the 2nd arg for customization
+setupListeners(store.dispatch);
+```
+
+`final`
+
+```ts
+//store.ts
+import {configureStore} from "@reduxjs/toolkit";
+import {productsAPI} from "@/redux/slice/api";
+
+export const store = configureStore({
+    reducer: {
+        [productsAPI.reducerPath]: productsAPI.reducer,
+    },
+    middleware: (getDefaultMiddleware) =>
+        getDefaultMiddleware().concat(productsAPI.middleware),
+});
+setupListeners(store.dispatch);
+```
+
